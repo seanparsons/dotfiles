@@ -1,6 +1,9 @@
+import java.io.IOException
 import scala.io.Source
 import java.nio.file._
+import java.nio.file.attribute._
 import java.nio.file.attribute.PosixFilePermission._
+import java.nio.file.FileVisitResult._
 import java.io.File
 import scala.sys.process._
 import java.net.URL
@@ -42,7 +45,8 @@ def withSource[T](source: => Source)(expression: Source => T): T = {
 
 // Uses the first line of content to determine if it needs to be added.
 def addContent(path: Path, content: Path) {
-  val shouldBeAppended = withSource(Source.fromFile(path.toFile)){destination =>
+  val exists = Files.exists(path)
+  val shouldBeAppended = !exists || withSource(Source.fromFile(path.toFile)){destination =>
     withSource(Source.fromFile(content.toFile)){source =>
       source.getLines.find(_ => true).headOption match {
         case Some(firstLine) => !destination.getLines.contains(firstLine)
@@ -52,9 +56,26 @@ def addContent(path: Path, content: Path) {
   }
   if (shouldBeAppended) {
     println("Appending %s to %s.".format(content, path))
-    "echo \n" #>> path.toFile !;
     content.toFile #>> path.toFile !;
   }
+}
+
+def delete(path: Path) {
+  if (Files.exists(path)) Files.walkFileTree(path, new SimpleFileVisitor[Path]() {
+    override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+      Files.delete(file)
+      return CONTINUE
+    }
+ 
+    override def postVisitDirectory(dir: Path, exc: IOException): FileVisitResult = {
+      if (exc == null) {
+        Files.delete(dir)
+        return CONTINUE
+      } else {
+        throw exc
+      }
+    }
+  })
 }
 
 val fileSystem = FileSystems.getDefault()
@@ -74,8 +95,24 @@ val localSBT = homeBin.resolve("sbt")
 downloadFileTo("https://raw.github.com/paulp/sbt-extras/master/sbt", localSBT)
 uPlusX(localSBT)
 
+// Clear down vim and set it up from scratch.
+println("Setting up vim.")
+val vimrc = home.resolve(".vimrc")
+val dotvim = home.resolve(".vim")
+val vimrcstage1 = dotFiles.resolve("vimrc-stage1")
+val vimrcstage2 = dotFiles.resolve("vimrc-stage2")
+delete(vimrc)
+delete(dotvim)
+"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !;
+addContent(vimrc, vimrcstage1)
+"vim +BundleInstall +qall" !;
+addContent(vimrc, vimrcstage2)
+
 // Append to .bashrc.
 // TODO: Expand to all files in /appendhome.
 val appendHome = dotFiles.resolve("appendhome")
 val bashrcAppend = appendHome.resolve(".bashrc")
 addContent(bashrc, bashrcAppend)
+
+// Setup vim.
+
