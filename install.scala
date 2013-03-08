@@ -103,9 +103,9 @@ val vimrcstage1 = dotFiles.resolve("vimrc-stage1")
 val vimrcstage2 = dotFiles.resolve("vimrc-stage2")
 delete(vimrc)
 delete(dotvim)
-"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !;
+"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
 addContent(vimrc, vimrcstage1)
-"vim +BundleInstall +qall" !;
+"vim +BundleInstall +qall" !!;
 addContent(vimrc, vimrcstage2)
 
 // Append to .bashrc.
@@ -114,5 +114,11 @@ val appendHome = dotFiles.resolve("appendhome")
 val bashrcAppend = appendHome.resolve(".bashrc")
 addContent(bashrc, bashrcAppend)
 
-// Setup vim.
-
+// Sort out dircolors.
+// http://michaelheap.com/getting-solarized-working-on-ubuntu/
+downloadFileTo("https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark", home.resolve(".dircolors"))
+"""gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_background --type bool false""" !!;
+"""gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_colors --type bool false""" !!;
+"""gconftool-2 --set /apps/gnome-terminal/profiles/Default/palette --type string #070736364242:#D3D301010202:#858599990000:#B5B589890000:#26268B8BD2D2:#D3D336368282:#2A2AA1A19898:#EEEEE8E8D5D5:#00002B2B3636:#CBCB4B4B1616:#58586E6E7575:#65657B7B8383:#838394949696:#6C6C7171C4C4:#9393A1A1A1A1:#FDFDF6F6E3E3""" !!;
+"""gconftool-2 --set /apps/gnome-terminal/profiles/Default/background_color --type string #00002B2B3636""" !!;
+"""gconftool-2 --set /apps/gnome-terminal/profiles/Default/foreground_color --type string #65657B7B8383""" !!;
