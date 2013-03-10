@@ -1,3 +1,14 @@
 syntax enable
 set background=dark
 colorscheme solarized
+
+autocmd vimenter * if !argc() | NERDTree | endif
+
+let g:miniBufExplMapCTabSwitchBufs = 1
+
+set nobackup
+
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+

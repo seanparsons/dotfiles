@@ -9,3 +9,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/nerdtree'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'mbadran/headlights'
+
