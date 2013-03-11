@@ -12,4 +12,5 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'mbadran/headlights'
-
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'ack.vim'

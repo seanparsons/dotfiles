@@ -106,6 +106,9 @@ delete(dotvim)
 "git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
 addContent(vimrc, vimrcstage1)
 "vim +BundleInstall +qall" !!;
+val commandTDir = dotvim.resolve("./bundle/command-t/ruby/command-t")
+Process("ruby extconf.rb", commandTDir.toFile) !!;
+Process("make", commandTDir.toFile) !!;
 addContent(vimrc, vimrcstage2)
 
 // Append to .bashrc.
