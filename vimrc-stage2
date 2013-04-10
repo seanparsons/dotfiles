@@ -8,7 +8,10 @@ noremap <C-A-Right> :MBEbn<CR>:<BS>
 
 set wildignore+=*.o,*.obj,.git,*.class,project/target/**
 
+" Turn off all backups and swap files.
 set nobackup
+set nowritebackup
+set noswapfile
 
 vmap <C-c> "+yi
 vmap <C-x> "+c
