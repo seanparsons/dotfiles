@@ -6,7 +6,7 @@ colorscheme solarized
 noremap <C-A-Left>  :MBEbp<CR>:<BS>
 noremap <C-A-Right> :MBEbn<CR>:<BS>
 
-set wildignore+=*.o,*.obj,.git,*.class,project/target/**
+set wildignore+=*.o,*.obj,.git,*.class,project/target/**,**/target/resolution-cache/**,**/target/streams/**,**/target/scala-*/**,**/target/specs2-reports/**
 
 " Turn off all backups and swap files.
 set nobackup
