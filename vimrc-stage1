@@ -3,13 +3,16 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " let Vundle manage Vundle
-" required! 
+" required!
+Bundle 'Lokaltog/powerline'
 Bundle 'gmarik/vundle'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'fholgado/minibufexpl.vim'
-Bundle 'mbadran/headlights'
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'ack.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
