@@ -42,3 +42,5 @@ augroup myvimrc
 augroup END
 
 set number
+
+call vam#ActivateAddons(['powerline'])
