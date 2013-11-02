@@ -1,6 +1,6 @@
 # Dotfiles additional content for .bashrc.
 # Personal bin folder.
-export PATH=$PATH:~/bin:~/.cabal/bin:~/.local/bin
+export PATH=~/.cabal/bin:~/.local/bin:$PATH
 
 # Directory colouring.
 if [ -x /usr/bin/dircolors ]; then
