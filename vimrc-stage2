@@ -1,3 +1,5 @@
+let $PATH = '/home/sean/.cabal/bin:/home/sean/.local/bin:' . $PATH
+
 syntax enable
 set background=dark
 colorscheme solarized
@@ -44,3 +46,8 @@ augroup END
 set number
 
 call vam#ActivateAddons(['powerline'])
+
+filetype plugin indent on
+
+au FileType haskell set omnifunc=necoghc#omnifunc
+

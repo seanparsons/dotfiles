@@ -109,6 +109,8 @@ addContent(vimrc, vimrcstage1)
 val commandTDir = dotvim.resolve("./bundle/command-t/ruby/command-t")
 Process("ruby extconf.rb", commandTDir.toFile) !!;
 Process("make", commandTDir.toFile) !!;
+val vimprocDir = dotvim.resolve("./bundle/vimproc.vim")
+Process("make", vimprocDir.toFile) !!;
 addContent(vimrc, vimrcstage2)
 
 // Append to .bashrc.
