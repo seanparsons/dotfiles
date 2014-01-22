@@ -1,5 +1,3 @@
-let $PATH = '/home/sean/.cabal/bin:/home/sean/.local/bin:' . $PATH
-
 syntax enable
 set background=dark
 colorscheme solarized
@@ -47,13 +45,13 @@ augroup END
 
 set number
 
-call vam#ActivateAddons(['powerline'])
+"call vam#ActivateAddons(['powerline'])
 
 filetype plugin indent on
 
-au FileType haskell set omnifunc=necoghc#omnifunc
+"au FileType haskell set omnifunc=necoghc#omnifunc
 
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 
 let g:necoghc_enable_detailed_browse = 1
 
@@ -112,6 +110,9 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+
+" More powerful browsing.
+let g:necoghc_enable_detailed_browse = 1
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
