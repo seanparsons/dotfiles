@@ -22,3 +22,5 @@ Bundle 'dag/vim2hs'
 Bundle 'eagletmt/neco-ghc'
 Bundle 'Shougo/neocomplete'
 Bundle 'idris-hackers/idris-vim'
+
+
