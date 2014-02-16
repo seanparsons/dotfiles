@@ -119,6 +119,26 @@ val appendHome = dotFiles.resolve("appendhome")
 val bashrcAppend = appendHome.resolve(".bashrc")
 addContent(bashrc, bashrcAppend)
 
+// Get Haskell rigged up.
+println("Setup Haskell")
+val dotCabal = home.resolve(".cabal")
+val dotGHC = home.resolve(".ghc")
+delete(dotCabal)
+delete(dotGHC)
+"cabal update" !!;
+"cabal install cabal-install" !!;
+"cabal install cabal-uninstall" !!;
+"cabal install happy" !!;
+"cabal install alex" !!;
+
+val cabalLib = dotCabal.resolve("lib")
+val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim)
+installedPackages.foreach{installedPackage =>
+  println("Uninstalling: "  + installedPackage)
+  ("ghc-pkg unregister --force " + installedPackage) !!;
+  delete(dotCabal.resolve(installedPackage))
+}
+
 // Sort out dircolors.
 // http://michaelheap.com/getting-solarized-working-on-ubuntu/
 downloadFileTo("https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark", home.resolve(".dircolors"))
