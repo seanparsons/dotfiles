@@ -130,6 +130,7 @@ delete(dotGHC)
 "cabal install cabal-uninstall" !!;
 "cabal install happy" !!;
 "cabal install alex" !!;
+"cabal install ghc-mod-3.1.6" !!;
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim)
