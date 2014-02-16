@@ -51,10 +51,7 @@ filetype plugin indent on
 
 "au FileType haskell set omnifunc=necoghc#omnifunc
 
-"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-
-let g:necoghc_enable_detailed_browse = 1
-
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -111,9 +108,4 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-" More powerful browsing.
-let g:necoghc_enable_detailed_browse = 1
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
