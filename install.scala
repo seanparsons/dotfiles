@@ -112,6 +112,8 @@ Process("make", commandTDir.toFile) !!;
 val vimprocDir = dotvim.resolve("./bundle/vimproc.vim")
 Process("make", vimprocDir.toFile) !!;
 addContent(vimrc, vimrcstage2)
+val ycmDir = dotvim.resolve("./bundle/YouCompleteMe")
+Process("./install.sh", ycmDir.toFile) !!;
 
 // Append to .bashrc.
 // TODO: Expand to all files in /appendhome.
@@ -130,7 +132,9 @@ delete(dotGHC)
 "cabal install cabal-uninstall" !!;
 "cabal install happy" !!;
 "cabal install alex" !!;
-"cabal install ghc-mod-3.1.6" !!;
+"cabal install ghc-mod-3.1.7" !!;
+//"cabal install hoogle" !!;
+//"hoogle data" !!;
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim)
