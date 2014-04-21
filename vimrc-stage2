@@ -11,6 +11,10 @@ set noswapfile
 
 set nofoldenable    " disable folding
 
+set nocursorcolumn
+set nocursorline
+syntax sync minlines=256
+
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
