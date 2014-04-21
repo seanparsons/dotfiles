@@ -134,8 +134,7 @@ delete(dotGHC)
 "cabal install alex" !!;
 "cabal install ghc-mod-3.1.7" !!;
 "cabal install hdevtools" !!;
-"cabal install hoogle" !!;
-"hoogle data" !!;
+"cabal install yesod-bin" !!;
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim)
