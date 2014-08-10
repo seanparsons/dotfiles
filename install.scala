@@ -106,14 +106,7 @@ delete(dotvim)
 "git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
 addContent(vimrc, vimrcstage1)
 "vim +BundleInstall +qall" !!;
-val commandTDir = dotvim.resolve("./bundle/command-t/ruby/command-t")
-Process("ruby extconf.rb", commandTDir.toFile) !!;
-Process("make", commandTDir.toFile) !!;
-val vimprocDir = dotvim.resolve("./bundle/vimproc.vim")
-Process("make", vimprocDir.toFile) !!;
 addContent(vimrc, vimrcstage2)
-val ycmDir = dotvim.resolve("./bundle/YouCompleteMe")
-Process("./install.sh", ycmDir.toFile) !!;
 
 // Append to .bashrc.
 // TODO: Expand to all files in /appendhome.
@@ -122,22 +115,24 @@ val bashrcAppend = appendHome.resolve(".bashrc")
 addContent(bashrc, bashrcAppend)
 
 // Get Haskell rigged up.
+def installWithCabal(targets: Seq[String]) {
+  "cabal update" !!;
+  "cabal install cabal-install" !!;
+  targets.foreach{target =>
+    println("Installing " + target)
+    ("cabal install -j " + target) !!;
+  }
+}
+
 println("Setup Haskell")
 val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
 delete(dotCabal)
 delete(dotGHC)
-"cabal update" !!;
-"cabal install cabal-install" !!;
-"cabal install cabal-uninstall" !!;
-"cabal install happy" !!;
-"cabal install alex" !!;
-"cabal install ghc-mod-3.1.7" !!;
-"cabal install hdevtools" !!;
-"cabal install yesod-bin" !!;
+installWithCabal(Seq("cabal-uninstall", "happy", "alex", "hakyll"))
 
 val cabalLib = dotCabal.resolve("lib")
-val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim)
+val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", ""))
 installedPackages.foreach{installedPackage =>
   println("Uninstalling: "  + installedPackage)
   ("ghc-pkg unregister --force " + installedPackage) !!;

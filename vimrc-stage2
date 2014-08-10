@@ -1,6 +1,4 @@
 syntax enable
-set background=dark
-colorscheme solarized
 
 set wildignore+=*.o,*.obj,.git,*.class,project/target/**,**/target/resolution-cache/**,**/target/streams/**,**/target/scala-*/**,**/target/specs2-reports/**
 
@@ -57,6 +55,3 @@ let g:necoghc_enable_detailed_browse = 1
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-
-let g:ycm_auto_trigger = 0
-
