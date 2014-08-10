@@ -96,17 +96,24 @@ downloadFileTo("https://raw.github.com/paulp/sbt-extras/master/sbt", localSBT)
 uPlusX(localSBT)
 
 // Clear down vim and set it up from scratch.
-println("Setting up vim.")
-val vimrc = home.resolve(".vimrc")
-val dotvim = home.resolve(".vim")
-val vimrcstage1 = dotFiles.resolve("vimrc-stage1")
-val vimrcstage2 = dotFiles.resolve("vimrc-stage2")
-delete(vimrc)
-delete(dotvim)
-"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
-addContent(vimrc, vimrcstage1)
-"vim +BundleInstall +qall" !!;
-addContent(vimrc, vimrcstage2)
+//println("Setting up vim.")
+//val vimrc = home.resolve(".vimrc")
+//val dotvim = home.resolve(".vim")
+//val vimrcstage1 = dotFiles.resolve("vimrc-stage1")
+//val vimrcstage2 = dotFiles.resolve("vimrc-stage2")
+//delete(vimrc)
+//delete(dotvim)
+//"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
+//addContent(vimrc, vimrcstage1)
+//"vim +BundleInstall +qall" !!;
+//val commandTDir = dotvim.resolve("./bundle/command-t/ruby/command-t")
+//Process("ruby extconf.rb", commandTDir.toFile) !!;
+//Process("make", commandTDir.toFile) !!;
+//val vimprocDir = dotvim.resolve("./bundle/vimproc.vim")
+//Process("make", vimprocDir.toFile) !!;
+//addContent(vimrc, vimrcstage2)
+//val ycmDir = dotvim.resolve("./bundle/YouCompleteMe")
+//Process("./install.sh", ycmDir.toFile) !!;
 
 // Append to .bashrc.
 // TODO: Expand to all files in /appendhome.
