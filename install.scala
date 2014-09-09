@@ -127,7 +127,7 @@ def installWithCabal(targets: Seq[String]) {
   "cabal install cabal-install" !!;
   targets.foreach{target =>
     println("Installing " + target)
-    ("cabal install -j " + target) !!;
+    ("cabal install -j --force-reinstalls " + target) !!;
   }
 }
 
@@ -136,7 +136,7 @@ val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
 delete(dotCabal)
 delete(dotGHC)
-installWithCabal(Seq("cabal-uninstall", "happy", "alex", "hakyll"))
+installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds"))
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", ""))
