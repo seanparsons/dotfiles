@@ -136,10 +136,11 @@ val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
 delete(dotCabal)
 delete(dotGHC)
-installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds"))
+//installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds", "ghc-mod"))
+installWithCabal(Seq("cabal-uninstall", "alex", "happy"))
 
 val cabalLib = dotCabal.resolve("lib")
-val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", ""))
+val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", "").replace("}", "").replace("{", ""))
 installedPackages.foreach{installedPackage =>
   println("Uninstalling: "  + installedPackage)
   ("ghc-pkg unregister --force " + installedPackage) !!;
