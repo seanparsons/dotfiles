@@ -104,9 +104,9 @@ addContent(bashrc, bashrcAppend)
 // Get Haskell rigged up.
 def installWithCabal(targets: Seq[String]) {
   println("Updating cabal database")
-  //"cabal update" !!;
+  "cabal update" !!;
   println("Updating cabal itself")
-  //"cabal install cabal-install" !!;
+  "cabal install cabal-install" !!;
   println("Deleting cabal-installed")
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)
@@ -134,9 +134,8 @@ def installWithCabal(targets: Seq[String]) {
 println("Setup Haskell")
 val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
-//delete(dotCabal)
-//delete(dotGHC)
-//installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds", "ghc-mod"))
+delete(dotCabal)
+delete(dotGHC)
 installWithCabal(Seq("cabal-uninstall", "alex", "happy", "yesod-bin"))
 
 val cabalLib = dotCabal.resolve("lib")
