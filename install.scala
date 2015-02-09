@@ -123,21 +123,38 @@ addContent(bashrc, bashrcAppend)
 
 // Get Haskell rigged up.
 def installWithCabal(targets: Seq[String]) {
-  "cabal update" !!;
-  "cabal install cabal-install" !!;
+  println("Updating cabal database")
+  //"cabal update" !!;
+  println("Updating cabal itself")
+  //"cabal install cabal-install" !!;
+  println("Deleting cabal-installed")
+  val cabalInstalled = homeBin.resolve("cabal-installed")
+  delete(cabalInstalled)
+  mkdir(cabalInstalled)
   targets.foreach{target =>
     println("Installing " + target)
-    ("cabal install -j --force-reinstalls " + target) !!;
+    // Install the command in its own little sandbox.
+    val installPath = cabalInstalled.resolve(target)
+    mkdir(installPath)
+    Process("cabal sandbox init", installPath.toFile) !!;
+    Process("cabal install -j --force-reinstalls " + target, installPath.toFile) !!;
+
+    // Create symbolic link in the bin folder to it.
+    val linkPath = homeBin.resolve(target)
+    val binaryPath = installPath.resolve(".cabal-sandbox").resolve("bin").resolve(target)
+    println("Creating " + linkPath + " -> " + binaryPath)
+    delete(linkPath)
+    Files.createSymbolicLink(linkPath, binaryPath)
   }
 }
 
 println("Setup Haskell")
 val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
-delete(dotCabal)
-delete(dotGHC)
+//delete(dotCabal)
+//delete(dotGHC)
 //installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds", "ghc-mod"))
-installWithCabal(Seq("cabal-uninstall", "alex", "happy"))
+installWithCabal(Seq("cabal-uninstall", "alex", "happy", "yesod"))
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", "").replace("}", "").replace("{", ""))
