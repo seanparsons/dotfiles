@@ -61,7 +61,9 @@ def addContent(path: Path, content: Path) {
 }
 
 def delete(path: Path) {
-  if (Files.exists(path)) Files.walkFileTree(path, new SimpleFileVisitor[Path]() {
+  if (Files.isSymbolicLink(path)) {
+    Files.delete(path)
+  } else if (Files.exists(path)) Files.walkFileTree(path, new SimpleFileVisitor[Path]() {
     override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
       Files.delete(file)
       return CONTINUE
@@ -88,32 +90,10 @@ val bashrc = home.resolve(".bashrc")
 // Make all the folders.
 mkdir(homeBin)
 
-// Build vim structure, pulling down vundle install from github.
-
 // Grab sbt script from github.
 val localSBT = homeBin.resolve("sbt") 
 downloadFileTo("https://raw.github.com/paulp/sbt-extras/master/sbt", localSBT)
 uPlusX(localSBT)
-
-// Clear down vim and set it up from scratch.
-//println("Setting up vim.")
-//val vimrc = home.resolve(".vimrc")
-//val dotvim = home.resolve(".vim")
-//val vimrcstage1 = dotFiles.resolve("vimrc-stage1")
-//val vimrcstage2 = dotFiles.resolve("vimrc-stage2")
-//delete(vimrc)
-//delete(dotvim)
-//"git clone https://github.com/gmarik/vundle.git %s/.vim/bundle/vundle".format(home.toAbsolutePath.toString) !!;
-//addContent(vimrc, vimrcstage1)
-//"vim +BundleInstall +qall" !!;
-//val commandTDir = dotvim.resolve("./bundle/command-t/ruby/command-t")
-//Process("ruby extconf.rb", commandTDir.toFile) !!;
-//Process("make", commandTDir.toFile) !!;
-//val vimprocDir = dotvim.resolve("./bundle/vimproc.vim")
-//Process("make", vimprocDir.toFile) !!;
-//addContent(vimrc, vimrcstage2)
-//val ycmDir = dotvim.resolve("./bundle/YouCompleteMe")
-//Process("./install.sh", ycmDir.toFile) !!;
 
 // Append to .bashrc.
 // TODO: Expand to all files in /appendhome.
@@ -140,11 +120,14 @@ def installWithCabal(targets: Seq[String]) {
     Process("cabal install -j --force-reinstalls " + target, installPath.toFile) !!;
 
     // Create symbolic link in the bin folder to it.
-    val linkPath = homeBin.resolve(target)
-    val binaryPath = installPath.resolve(".cabal-sandbox").resolve("bin").resolve(target)
-    println("Creating " + linkPath + " -> " + binaryPath)
-    delete(linkPath)
-    Files.createSymbolicLink(linkPath, binaryPath)
+    val targetBinFolder = installPath.resolve(".cabal-sandbox").resolve("bin")
+    Files.newDirectoryStream(targetBinFolder).asScala.filter(path => Files.isExecutable(path)).foreach{executable =>
+      val linkPath = homeBin.resolve(executable.getFileName)
+      println("Creating " + linkPath + " -> " + executable)
+      delete(linkPath)
+      Files.createSymbolicLink(linkPath, executable)
+      linkPath.toFile.setExecutable(true, true)
+    }
   }
 }
 
@@ -154,7 +137,7 @@ val dotGHC = home.resolve(".ghc")
 //delete(dotCabal)
 //delete(dotGHC)
 //installWithCabal(Seq("cabal-uninstall", "alex", "happy", "c2hs", "cabal-bounds", "ghc-mod"))
-installWithCabal(Seq("cabal-uninstall", "alex", "happy", "yesod"))
+installWithCabal(Seq("cabal-uninstall", "alex", "happy", "yesod-bin"))
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", "").replace("}", "").replace("{", ""))
