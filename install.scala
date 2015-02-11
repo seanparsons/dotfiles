@@ -86,6 +86,7 @@ val dotFiles = fileSystem.getPath(".")
 val home = fileSystem.getPath(sys.props("user.home"))
 val homeBin = home.resolve("bin")
 val bashrc = home.resolve(".bashrc")
+val zshrc = home.resolve(".zshrc")
 
 // Make all the folders.
 mkdir(homeBin)
@@ -100,6 +101,8 @@ uPlusX(localSBT)
 val appendHome = dotFiles.resolve("appendhome")
 val bashrcAppend = appendHome.resolve(".bashrc")
 addContent(bashrc, bashrcAppend)
+val zshrcAppend = appendHome.resolve(".zshrc")
+addContent(zshrc, zshrcAppend)
 
 // Get Haskell rigged up.
 def installWithCabal(targets: Seq[String]) {
