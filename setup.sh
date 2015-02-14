@@ -1,6 +1,9 @@
 #!/bin/bash
 add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:webupd8team/sublime-text-3
+add-apt-repository -y ppa:oibaf/graphics-drivers
+add-apt-repository -y ppa:gnome3-team/gnome3
+add-apt-repository -y ppa:gnome3-team/gnome3-staging
 apt-get update
 apt-get dist-upgrade
 apt-get install -y git haskell-platform-prof vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl
