@@ -9,6 +9,12 @@ import scala.sys.process._
 import java.net.URL
 import scala.collection.JavaConverters._
 
+
+// Top line functionality.
+val haskellAppsToInstall = Seq("cabal-uninstall", "alex", "happy", "yesod-bin", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
+
+
+
 def mkdir(path: Path) {
   if (!Files.exists(path)) {
     println("Creating: " + path)
@@ -139,7 +145,7 @@ val dotCabal = home.resolve(".cabal")
 val dotGHC = home.resolve(".ghc")
 delete(dotCabal)
 delete(dotGHC)
-installWithCabal(Seq("cabal-uninstall", "alex", "happy", "yesod-bin"))
+installWithCabal(haskellAppsToInstall)
 
 val cabalLib = dotCabal.resolve("lib")
 val installedPackages = ("ghc-pkg --user list" !!).split("\n").tail.map(_.trim.replace("(", "").replace(")", "").replace("}", "").replace("{", ""))
