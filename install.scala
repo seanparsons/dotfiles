@@ -115,7 +115,7 @@ def installWithCabal(targets: Seq[String]) {
   println("Updating cabal database")
   "cabal update" !!;
   println("Updating cabal itself")
-  "cabal install cabal-install" !!;
+  "/home/sean/.cabal/bin/cabal install cabal-install" !!;
   println("Deleting cabal-installed")
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)
@@ -125,8 +125,8 @@ def installWithCabal(targets: Seq[String]) {
     // Install the command in its own little sandbox.
     val installPath = cabalInstalled.resolve(target)
     mkdir(installPath)
-    Process("cabal sandbox init", installPath.toFile) !!;
-    Process("cabal install -j --force-reinstalls " + target, installPath.toFile) !!;
+    Process("/home/sean/.cabal/bin/cabal sandbox init", installPath.toFile) !!;
+    Process("/home/sean/.cabal/bin/cabal install -j --force-reinstalls " + target, installPath.toFile) !!;
 
     // Create symbolic link in the bin folder to it.
     val targetBinFolder = installPath.resolve(".cabal-sandbox").resolve("bin")
