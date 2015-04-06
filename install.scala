@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
 
 
 // Top line functionality.
-val haskellAppsToInstall = Seq("cabal-uninstall", "alex", "happy", "yesod-bin", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
+val haskellAppsToInstall = Seq("cabal-uninstall", "alex", "happy", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
 
 
 
