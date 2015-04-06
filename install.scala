@@ -115,7 +115,7 @@ def installWithCabal(targets: Seq[String]) {
   println("Updating cabal database")
   "cabal update" !!;
   println("Updating cabal itself")
-  "/home/sean/.cabal/bin/cabal install cabal-install" !!;
+  "cabal install cabal-install" !!;
   println("Deleting cabal-installed")
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)
