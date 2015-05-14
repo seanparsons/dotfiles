@@ -10,7 +10,6 @@ apt-get update
 apt-get dist-upgrade -y
 apt-get install -y git vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep ghc-7.10.2-prof cabal-install-1.22
 sudo -u sean mkdir /home/sean/bin
-sudo -u sean ln -s /opt/cabal/1.22/bin/cabal /home/sean/bin/cabal
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghc /home/sean/bin/ghc
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghc-pkg /home/sean/bin/ghc-pkg
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghci /home/sean/bin/ghci
