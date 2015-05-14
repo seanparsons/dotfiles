@@ -8,7 +8,7 @@ sh -c "echo deb https://get.docker.io/ubuntu docker main\
 > /etc/apt/sources.list.d/docker.list"
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y git haskell-platform-prof vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep
+apt-get install -y git vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep ghc-7.10.2-prof cabal-install-1.22
 pip install awscli
 cd /tmp
 rm -f *.deb
