@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
 
 
 // Top line functionality.
-val haskellAppsToInstall = Seq("cabal-uninstall", "alex", "happy", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
+val haskellAppsToInstall = Seq("alex", "happy", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
 
 
 
@@ -120,7 +120,7 @@ def installWithCabal(targets: Seq[String]) {
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)
   mkdir(cabalInstalled)
-  targets.par.foreach{target =>
+  targets.foreach{target =>
     println("Installing " + target)
     // Install the command in its own little sandbox.
     val installPath = cabalInstalled.resolve(target)
