@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
 
 
 // Top line functionality.
-val haskellAppsToInstall = Seq("alex", "happy", "ghc-mod", "hdevtools", "stylish-haskell", "haddock")
+val haskellAppsToInstall = Seq("alex", "happy", "stylish-haskell", "haddock")
 
 
 
@@ -113,9 +113,9 @@ addContent(zshrc, zshrcAppend)
 // Get Haskell rigged up.
 def installWithCabal(targets: Seq[String]) {
   println("Updating cabal database")
-  "cabal update" !!;
+  "/opt/cabal/1.22/bin/cabal update" !!;
   println("Updating cabal itself")
-  "cabal install cabal-install" !!;
+  "/opt/cabal/1.22/bin/cabal install cabal-install" !!;
   println("Deleting cabal-installed")
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)

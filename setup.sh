@@ -15,6 +15,9 @@ sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghc-pkg /home/sean/bin/ghc-pkg
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghci /home/sean/bin/ghci
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/runghc /home/sean/bin/runghc
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/runhaskell /home/sean/bin/runhaskell
+sudo -u sean ln -s /opt/ghc/7.10.2/bin/hp2ps /home/sean/bin/hp2ps
+sudo -u sean ln -s /opt/ghc/7.10.2/bin/hpc /home/sean/bin/hpc
+sudo -u sean ln -s /opt/ghc/7.10.2/bin/hsc2hs /home/sean/bin/hsc2hs
 pip install awscli
 cd /tmp
 rm -f *.deb
