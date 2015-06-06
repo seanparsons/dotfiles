@@ -86,6 +86,18 @@ def delete(path: Path) {
   })
 }
 
+def run(toExecute: String, workingDir: Path): Unit = {
+  try {
+    Process(toExecute, workingDir.toFile) !!;
+  } catch {
+    case throwable: Throwable => {
+      println(s"Running '$toExecute' failed with exception:")
+      println(throwable)
+      throwable.printStackTrace()
+    }
+  }
+}
+
 val fileSystem = FileSystems.getDefault()
 // Assumes we're in the dotfiles directory.
 val dotFiles = fileSystem.getPath(".")
@@ -125,8 +137,8 @@ def installWithCabal(targets: Seq[String]) {
     // Install the command in its own little sandbox.
     val installPath = cabalInstalled.resolve(target)
     mkdir(installPath)
-    Process("/home/sean/.cabal/bin/cabal sandbox init", installPath.toFile) !!;
-    Process("/home/sean/.cabal/bin/cabal install -j --force-reinstalls " + target, installPath.toFile) !!;
+    run("/home/sean/.cabal/bin/cabal sandbox init", installPath)
+    run("/home/sean/.cabal/bin/cabal install -j --force-reinstalls " + target, installPath)
 
     // Create symbolic link in the bin folder to it.
     val targetBinFolder = installPath.resolve(".cabal-sandbox").resolve("bin")
