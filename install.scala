@@ -11,8 +11,7 @@ import scala.collection.JavaConverters._
 
 
 // Top line functionality.
-val haskellAppsToInstall = Seq("alex", "happy", "stylish-haskell", "haddock")
-
+val haskellAppsToInstall = Seq("haskellscript")
 
 
 def mkdir(path: Path) {
@@ -86,9 +85,16 @@ def delete(path: Path) {
   })
 }
 
-def run(toExecute: String, workingDir: Path): Unit = {
+def run(toExecute: String, workingDir: Path, addToPath: List[String] = Nil): Unit = {
   try {
-    Process(toExecute, workingDir.toFile) !!;
+    addToPath match {
+      case Nil => Process(toExecute, workingDir.toFile) !!;
+      case extraPath => {
+        val currentPath = sys.env.getOrElse("PATH", "")
+        val path = addToPath.foldLeft(currentPath)((working, elem) => working + ":" + elem)
+        Process(toExecute, workingDir.toFile, "PATH" -> path) !!;
+      }
+    }
   } catch {
     case throwable: Throwable => {
       println(s"Running '$toExecute' failed with exception:")
@@ -97,6 +103,9 @@ def run(toExecute: String, workingDir: Path): Unit = {
     }
   }
 }
+
+val ghcPath = "/opt/ghc/7.8.4/bin"
+val withCompiler = s" --with-compiler=$ghcPath/ghc"
 
 val fileSystem = FileSystems.getDefault()
 // Assumes we're in the dotfiles directory.
@@ -127,7 +136,7 @@ def installWithCabal(targets: Seq[String]) {
   println("Updating cabal database")
   "/opt/cabal/1.22/bin/cabal update" !!;
   println("Updating cabal itself")
-  "/opt/cabal/1.22/bin/cabal install cabal-install" !!;
+  ("/opt/cabal/1.22/bin/cabal " + withCompiler + " install cabal-install") !!;
   println("Deleting cabal-installed")
   val cabalInstalled = homeBin.resolve("cabal-installed")
   delete(cabalInstalled)
@@ -137,8 +146,8 @@ def installWithCabal(targets: Seq[String]) {
     // Install the command in its own little sandbox.
     val installPath = cabalInstalled.resolve(target)
     mkdir(installPath)
-    run("/home/sean/.cabal/bin/cabal sandbox init", installPath)
-    run("/home/sean/.cabal/bin/cabal install -j --force-reinstalls " + target, installPath)
+    run(s"/home/sean/.cabal/bin/cabal sandbox init", installPath, ghcPath :: Nil)
+    run(s"/home/sean/.cabal/bin/cabal install -j --force-reinstalls $withCompiler $target", installPath, ghcPath :: Nil)
 
     // Create symbolic link in the bin folder to it.
     val targetBinFolder = installPath.resolve(".cabal-sandbox").resolve("bin")
