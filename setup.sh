@@ -10,7 +10,7 @@ sh -c "echo deb https://get.docker.io/ubuntu docker main\
 > /etc/apt/sources.list.d/docker.list"
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y git vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep ghc-7.10.2 cabal-install-1.22 slack
+apt-get install -y git vpnc gdebi-core oracle-java8-installer sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep ghc-7.10.2 cabal-install-1.22 stack
 sudo -u sean mkdir /home/sean/bin
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghc /home/sean/bin/ghc
 sudo -u sean ln -s /opt/ghc/7.10.2/bin/ghc-pkg /home/sean/bin/ghc-pkg
