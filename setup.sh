@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get install -y python-software-properties
+apt-get install -y software-properties-common
 apt-get remove -y oneconf
 add-apt-repository -y ppa:webupd8team/java
 add-apt-repository -y ppa:webupd8team/sublime-text-3
