@@ -16,8 +16,8 @@ sudo -u sean mkdir /home/sean/bin
 pip install awscli
 cd /tmp
 rm -f *.deb
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-wget http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+wget -q http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
 gdebi -n google-chrome-stable_current_amd64.deb
 gdebi -n scala-2.11.5.deb
 rm -rf /home/sean/.zshrc
