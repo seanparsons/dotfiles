@@ -11,7 +11,7 @@ apt-get dist-upgrade -y
 apt-get install -y git vpnc gdebi openjdk-8-jdk sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep stack
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 wget -q http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
-dpkg -i google-chrome-stable_current_amd64.deb
-dpkg -i scala-2.11.5.deb
+gdebi -n google-chrome-stable_current_amd64.deb
+gdebi -n scala-2.11.5.deb
 pip install awscli
 rm -f *.deb
