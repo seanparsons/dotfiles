@@ -1,6 +1,5 @@
 #!/bin/bash
 apt-get install -y software-properties-common apt-transport-https
-apt-get remove -y oneconf
 add-apt-repository -y ppa:webupd8team/sublime-text-3
 wget -q -O- http://download.fpcomplete.com/ubuntu/fpco.key | apt-key add -
 echo 'deb http://download.fpcomplete.com/ubuntu/wily stable main' | tee /etc/apt/sources.list.d/fpco.list
