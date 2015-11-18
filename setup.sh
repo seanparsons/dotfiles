@@ -8,7 +8,22 @@ apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E8
 echo 'deb https://apt.dockerproject.org/repo ubuntu-wily main' | tee /etc/apt/sources.list.d/docker.list
 apt-get update
 apt-get dist-upgrade -y
-apt-get install -y git vpnc gdebi openjdk-8-jdk sublime-text-installer xclip ppa-purge zsh curl lxc-docker htop python-pip vlc ant ack-grep stack
+apt-get install -y git
+apt-get install -y vpnc
+apt-get install -y gdebi
+apt-get install -y openjdk-8-jdk
+apt-get install -y sublime-text-installer
+apt-get install -y xclip
+apt-get install -y ppa-purge
+apt-get install -y zsh
+apt-get install -y curl
+apt-get install -y docker-engine
+apt-get install -y htop
+apt-get install -y python-pip
+apt-get install -y vlc
+apt-get install -y ant
+apt-get install -y ack-grep
+apt-get install -y stack
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 wget -q http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
 gdebi -n google-chrome-stable_current_amd64.deb
