@@ -24,8 +24,8 @@ apt-get install -y ant
 apt-get install -y ack-grep
 apt-get install -y stack
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-wget -q http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
 gdebi -n google-chrome-stable_current_amd64.deb
+wget -q http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.deb
 gdebi -n scala-2.11.5.deb
 pip install awscli
 rm -f *.deb
